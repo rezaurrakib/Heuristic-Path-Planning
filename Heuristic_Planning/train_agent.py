@@ -3,6 +3,8 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
+for i in [float(j) / 100 for j in range(0, 100, 1)]:
+    print(i)
 
 # LOAD ENVIRONMENT
 env = gym.make('FrozenLake-v0')

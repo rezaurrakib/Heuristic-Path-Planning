@@ -16,7 +16,7 @@ STEERING_ACTIONS = [-40, -30, -20, -10, 0, 10, 20, 30, 40]
 
 MAX_PHI = 45 #maximal steering angle
 L = 3 #vehicle length between front and rear axis
-VELOCITY = 50 #velocity in m/s
+VELOCITY = 20 #velocity in m/s
 TIMESTEP_SIZE = 0.5 #timestep in s
 
 #init model
@@ -76,6 +76,13 @@ with tf.Session() as sess:
 			#s1,r,d,_ = env.step(a[0])
 
 			state1, reward = model.step(a[0], target)
+
+
+			# VISUALIZE CAR AND LINE HERE
+			x, y, theta = state1
+			target_x = target.x
+			target_y = target.y
+			
 
 			# Obtain the Q' values by feeding the new state through our network
 			Q1 = sess.run(Qout,feed_dict={inputs1:np.identity(3)[state1:state1+1]})

@@ -12,6 +12,11 @@ class Single_track_model:
         self.velocity = velocity #velocity is assumed to be constant
         self.timestep_size = timestep_size #discretization of time; one action = driving with a fixed steering angle for one timestep
 
+    #set state of car
+    def set_state(self, x, y, theta):
+        self.x = x
+        self.y = y
+        self.theta = theta
 
     # compute the position and angle of the car (x_new, y_new, theta_new),
     # depending on the previous state (x_old, y_old, theta_old)

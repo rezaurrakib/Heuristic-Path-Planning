@@ -3,6 +3,7 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from single_track_model import Single_track_model
+from target import Target_Line
 
 for i in [float(j) / 100 for j in range(0, 100, 1)]:
     print(i)
@@ -15,17 +16,19 @@ STEERING_ACTIONS = [-40, -30, -20, -10, 0, 10, 20, 30, 40]
 
 MAX_PHI = 45 #maximal steering angle
 L = 3 #vehicle length between front and rear axis
-THETA = 0 #current configuration angle
 VELOCITY = 50 #velocity in m/s
 TIMESTEP_SIZE = 0.5 #timestep in s
 
 #init model
-model = Single_track_model(MAX_PHI, L, THETA, VELOCITY, TIMESTEP_SIZE)
+model = Single_track_model(MAX_PHI, L, VELOCITY, TIMESTEP_SIZE)
 
-# CREATE NETWORK
+#init target
+target = Target_Line(x1=0, y1=0, x2=1, y2=0) #straight line on x-axis
+
+#CREATE NETWORK
 tf.reset_default_graph()
 
-# These lines establish the feed-forward part of the network used to choose actions
+#Establish the feed-forward part of the network used to choose actions
 # 16 states, 4 actions, but in the car case, there are infinite states! (infinite positions and infinite theta-configurations)
 # Solution: don't use one-hot vector for state, but 3-element vector for (x,y,theta)
 inputs1 = tf.placeholder(shape=[1,3],dtype=tf.float32)
@@ -69,6 +72,9 @@ with tf.Session() as sess:
 				a[0] = env.action_space.sample()
 			# Get new state and reward from environment
 			s1,r,d,_ = env.step(a[0])
+
+			state, reward = model.step(a[0], target)
+
 			# Obtain the Q' values by feeding the new state through our network
 			Q1 = sess.run(Qout,feed_dict={inputs1:np.identity(3)[s1:s1+1]})
 			# Obtain maxQ' and set our target value for chosen action.

@@ -5,6 +5,8 @@ import pygame
 import sys
 import time
 
+RED = (255, 0 , 0)
+
 class Background(pygame.sprite.Sprite):
     def __init__(self, image_file, location):
         pygame.sprite.Sprite.__init__(self)  #call Sprite initializer
@@ -21,10 +23,11 @@ def rotatingTheta(agentObject, theta, rotations={}):
     rotations[agentObject] = r
     return pygame.transform.rotate(agentObject, r)
 
+
 def agent_movement_visualization(train_finish, updated_x, updated_y):
     pygame.init()
     
-    screen = pygame.display.set_mode((1200,600))
+    screen = pygame.display.set_mode((1200,700))
 
     # Agent Initializtion .......
     Agent = pygame.image.load("tesla.png")
@@ -36,12 +39,14 @@ def agent_movement_visualization(train_finish, updated_x, updated_y):
             if event.type == pygame.QUIT:
                 train_finish = True
                 #sys.exit()
-                
-        #screen.fill( (255,0,0) )
+        
         # Background Initialization ...
         BackGround = Background('crossboard.png', [0,0])
         screen.fill([255, 255, 255])
         screen.blit(BackGround.image, BackGround.rect)
+        
+        #draw_line_obstacle(BackGround.image, (20, 20) , (100, 100))
+        pygame.draw.line(screen, (255, 0 , 0), (200, 350) , (1000, 350), 8)
         
         rotated_agent = rotatingTheta(Agent, 10)
         position = rotated_agent.get_rect()

@@ -18,7 +18,11 @@ class Single_track_model:
         self.y = y
         self.theta = theta
 
-    # compute the position and angle of the car (x_new, y_new, theta_new),
+    #get current state of the car
+    def get_state(self):
+        return self.x, self.y, self.theta
+
+    # move the car and compute the position and angle of the car (x_new, y_new, theta_new),
     # depending on the previous state (x_old, y_old, theta_old)
     # and the action(steering angle phi with velocity v for duration of one timestep)
     def next_state(self, theta_old, phi):

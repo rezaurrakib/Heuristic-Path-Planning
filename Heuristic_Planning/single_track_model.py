@@ -1,17 +1,17 @@
 import math
 
-class single_track_model:
+class Single_track_model:
 
-    #x and y will always be different -> just passed to get_next_state function
+    #x and y and phi will always change -> just passed to get_next_state function
     #position variables refer to the 2D position of the rear axis!
 
-    def __init__(self, max_theta, L, theta, phi, velocity, timestep_size):
-        self.max_theta = max_theta
+    def __init__(self, max_phi, L, theta, velocity, timestep_size):
+        self.max_phi = max_phi #maximal steering angle
         self.L = L #vehicle length
         self.theta = theta #car angle
-        self.phi = phi #steering angle
         self.velocity = velocity #velocity is assumed to be constant
         self.timestep_size = timestep_size #discretization of time; one action = driving with a fixed steering angle for one timestep
+
 
     # compute the position and angle of the car (x_new, y_new, theta_new),
     # depending on the previous state (x_old, y_old, theta_old)
@@ -36,3 +36,5 @@ class single_track_model:
             theta_new = (math.tan(phi)/self.L) * fraction_size * self.velocity
 
         return x_new, y_new, theta_new
+
+print()

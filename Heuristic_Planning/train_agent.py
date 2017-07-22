@@ -2,6 +2,7 @@ import gym
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
+from single_track_model import Single_track_model
 
 for i in [float(j) / 100 for j in range(0, 100, 1)]:
     print(i)
@@ -9,12 +10,20 @@ for i in [float(j) / 100 for j in range(0, 100, 1)]:
 # LOAD ENVIRONMENT
 env = gym.make('FrozenLake-v0')
 
-tf.reset_default_graph()
+MAX_PHI = 45 #maximal steering angle
+L = 3 #vehicle length between front and rear axis
+THETA = 0 #current configuration angle
+VELOCITY = 50 #velocity in m/s
+TIMESTEP_SIZE = 0.5 #timestep in s
+
+#init model
+model = Single_track_model(MAX_PHI, L, THETA, VELOCITY, TIMESTEP_SIZE)
 
 # CREATE NETWORK
 tf.reset_default_graph()
 
 # These lines establish the feed-forward part of the network used to choose actions
+# 16 states, 4 actions, but in the car case, there are infinite states! (infinite positions and infinite theta-configurations)
 inputs1 = tf.placeholder(shape=[1,16],dtype=tf.float32)
 W = tf.Variable(tf.random_uniform([16,4],0,0.01))
 Qout = tf.matmul(inputs1,W)
@@ -38,9 +47,9 @@ num_episodes = 2000
 jList = []
 rList = []
 with tf.Session() as sess:
-	sess.run(init)
-	for i in range(num_episodes):
-		# Reset environment and get first new observation
+    sess.run(init)
+    for i in range(num_episodes):
+        # Reset environment and get first new observation
 		if i % 100 == 0:
 			print("Episode " + str(i))
 		s = env.reset()

@@ -55,8 +55,19 @@ class Single_track_model:
     def get_reward(self, px, py, theta, target):
         #??? to make it realistic, the reward should be one when (almost) on the line and zero when away from the line
         #??? when the car is (+/-1 meter) on the line, it counts as a proper driving behaviour (which the car could observe by and the reward is 0
-        return 100/(target.get_distance(px, py)+1)
 
+        distance, flag=target.get_distance(px, py)
+        
+        #initial approach
+        #return 100/(distance+1)
+        
+        #an aggressive approach
+        #return (100/math.pow(distance,2))-((100*theta*flag)/math.pow(distance,3))
+
+        #less aggressive approach
+        return (100/distance)-((100*theta*flag)/math.pow(distance,2))
+
+		 
     #take action (steering angle phi) and return reward and new state
     def step(self, phi, target):
         new_state = self.next_state(self.theta, phi)

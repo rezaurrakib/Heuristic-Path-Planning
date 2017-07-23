@@ -13,6 +13,18 @@ class Target_Line:
 
     #compute distance between point and target line
     def get_distance(self, px, py):
-        nominator = math.fabs(((self.x2-self.x1)*(self.y1-py)) - ((self.x1-px)*(self.y2-self.y1)))
+        
+        relative_location=((self.x2-self.x1)*(self.y1-py)) - ((self.x1-px)*(self.y2-self.y1))
+        nominator = math.fabs(relative_location)
         denominator = math.sqrt((self.x2-self.x1)**2 + (self.y2-self.y1)**2)
-        return nominator / denominator
+        
+        #position of the point according to the line
+        if relative_location>0:
+            flag=1
+        elif relative_location==0:
+            flag=0
+        else:
+            flag=-1   
+        
+        return nominator / denominator, flag
+

@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from single_track_model import Single_track_model
 from target import Target_Line
 import random
+from heuristic_visualization import Visualization
 
 # LOAD ENVIRONMENT
 env = gym.make('FrozenLake-v0')
@@ -23,6 +24,9 @@ model = Single_track_model(MAX_PHI, L, VELOCITY, TIMESTEP_SIZE)
 
 #init target
 target = Target_Line(x1=0, y1=0, x2=1, y2=0) #straight line on x-axis
+
+#init visualization
+visualization = Visualization()
 
 #CREATE NETWORK
 print("Creating network")
@@ -78,11 +82,9 @@ with tf.Session() as sess:
             state1, reward = model.step(STEERING_ACTIONS[a[0]], target)
 
             # VISUALIZE CAR AND LINE HERE
+            #TODO add L, phi, target_line to visualization
             x1, y1, theta1 = state1
-            target_x1 = target.x1
-            target_y1 = target.y1
-            target_x2 = target.x2
-            target_y2 = target.y2
+            visualization.update(x1,y1,theta)
 			#...
 
 

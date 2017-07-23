@@ -25,7 +25,7 @@ class Single_track_model:
     # move the car and compute the position and angle of the car (x_new, y_new, theta_new),
     # depending on the previous state (x_old, y_old, theta_old)
     # and the action(steering angle phi with velocity v for duration of one timestep)
-    def next_state(self, theta_old, phi):
+    def next_state(self, phi):
 
         #simplifying approach (without integrals etc): discretize timestep in to very small fraction
         #for each fraction, assume that the car moves straight (according to theta),
@@ -38,12 +38,13 @@ class Single_track_model:
 
         x_new = self.x
         y_new = self.y
-        theta_new = theta_old
+        theta_new = self.theta
 
         for _ in [float(j * fraction_size) for j in range(0, fractions_per_timestep, 1)]:
             x_new += self.velocity * fraction_size * math.cos(theta_new)
             y_new += self.velocity * fraction_size * math.sin(theta_new)
-            theta_new = (math.tan(phi)/self.L) * fraction_size * self.velocity
+            print(str(x_new)+";"+str(y_new))
+            theta_new += (math.tan(phi) / self.L) * fraction_size * self.velocity
 
         self.x = x_new
         self.y = y_new
@@ -70,6 +71,6 @@ class Single_track_model:
 		 
     #take action (steering angle phi) and return reward and new state
     def step(self, phi, target):
-        new_state = self.next_state(self.theta, phi)
+        new_state = self.next_state(phi)
         reward = self.get_reward(self.x, self.y, self.theta, target)
         return new_state, reward

@@ -28,6 +28,16 @@ class Visualization:
         return pygame.transform.rotate(agentObject, r)
 
 
+    def text_information_display(self, screen, x, y, theta):
+        pygame.font.init()
+        myfont = pygame.font.SysFont('Comic Sans MS', 20)
+        text = "X : " + str(x) + "\nY : " + str(y) + "\nTheta : " + str(theta)
+        lines = text.splitlines()
+        
+        for i, length in enumerate(lines):
+            screen.blit(myfont.render(lines[i], 0, (0, 0, 1)), (1000, 0 + 20 * i))
+
+
     def agent_movement_visualization(self, updated_x, updated_y, updated_theta):
 
         screen = pygame.display.set_mode((1200,700))
@@ -52,8 +62,11 @@ class Visualization:
         #screen.blit(rotated_agent, (400,300))
         screen.blit(rotated_agent, displaced_agent_after_rotation)
         #screen.blit(Agent, displaced_agent_after_rotation)
+        self.text_information_display(screen, updated_x, updated_y, updated_theta)
         pygame.display.update()
         time.sleep(0.005) # Frame creates in 0.005 sec interval
+
+
 
     def update(self, x, y, theta):
         for event in pygame.event.get():

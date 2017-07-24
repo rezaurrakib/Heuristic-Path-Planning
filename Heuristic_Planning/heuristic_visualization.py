@@ -6,6 +6,13 @@ import sys
 import time
 
 RED = (255, 0 , 0)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
+TEXT_SIZE = 20
+SCREEN_WIDTH = 1200
+SCREEN_HEIGHT = 700
+LINE_THICKNESS = 8
 
 class Background(pygame.sprite.Sprite):
     def __init__(self, image_file, location):
@@ -22,6 +29,7 @@ class Visualization:
     def __init__(self):
         pygame.init()
 
+
     def rotatingTheta(self, agentObject, theta, rotations={}):
         r = rotations.get(agentObject,0) + theta
         rotations[agentObject] = r
@@ -30,12 +38,12 @@ class Visualization:
 
     def text_information_display(self, screen, x, y, theta):
         pygame.font.init()
-        myfont = pygame.font.SysFont('Comic Sans MS', 20)
+        myfont = pygame.font.SysFont('Comic Sans MS', TEXT_SIZE)
         text = "X : " + str(x) + "\nY : " + str(y) + "\nTheta : " + str(theta)
         lines = text.splitlines()
         
         for i, length in enumerate(lines):
-            screen.blit(myfont.render(lines[i], 0, (0, 0, 1)), (1000, 0 + 20 * i))
+            screen.blit(myfont.render(lines[i], 0, BLACK), (SCREEN_WIDTH - 300, 0 + TEXT_SIZE * i))
 
 
     def agent_movement_visualization(self, updated_x, updated_y, updated_theta):
@@ -53,7 +61,7 @@ class Visualization:
         screen.blit(BackGround.image, BackGround.rect)
 
         #draw_line_obstacle(BackGround.image, (20, 20) , (100, 100))
-        pygame.draw.line(screen, (255, 0 , 0), (200, 350) , (1000, 350), 8)
+        pygame.draw.line(screen, RED, (SCREEN_WIDTH - 1000, (SCREEN_HEIGHT/2)) , (SCREEN_WIDTH - 200, (SCREEN_HEIGHT/2)), LINE_THICKNESS)
 
         # Displaying Animation
         rotated_agent = self.rotatingTheta(Agent, updated_theta)

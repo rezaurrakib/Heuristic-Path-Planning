@@ -42,7 +42,8 @@ class Single_track_model:
             self.x += self.velocity * fraction_size * math.cos(math.radians(self.theta))
             self.y -= self.velocity * fraction_size * math.sin(math.radians(self.theta))
             self.theta += math.degrees((math.tan(math.radians(phi)) / self.L) * fraction_size * self.velocity)
-            self.theta = -20
+            self.theta %= 360
+            #self.theta = -20
 
         return self.x, self.y, self.theta
         #self.theta += phi

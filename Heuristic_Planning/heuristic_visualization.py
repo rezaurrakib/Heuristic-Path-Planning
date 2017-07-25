@@ -36,17 +36,17 @@ class Visualization:
         return pygame.transform.rotate(agentObject, r)
 
 
-    def text_information_display(self, screen, x, y, theta):
+    def text_information_display(self, screen, x, y, theta, phi, reward):
         pygame.font.init()
         myfont = pygame.font.SysFont('Comic Sans MS', TEXT_SIZE)
-        text = "X : " + str(x) + "\nY : " + str(y) + "\nTheta : " + str(theta)
+        text = "X : " + str(x) + "\nY : " + str(y) + "\nTheta : " + str(theta) + "\nPhi: "+str(phi) +"\nReward: "+str(reward)
         lines = text.splitlines()
         
         for i, length in enumerate(lines):
             screen.blit(myfont.render(lines[i], 0, BLACK), (SCREEN_WIDTH - 300, 0 + TEXT_SIZE * i))
 
 
-    def agent_movement_visualization(self, updated_x, updated_y, updated_theta):
+    def agent_movement_visualization(self, updated_x, updated_y, updated_theta, current_phi, reward):
 
         screen = pygame.display.set_mode((1200,700))
 
@@ -70,18 +70,18 @@ class Visualization:
         #screen.blit(rotated_agent, (400,300))
         screen.blit(rotated_agent, displaced_agent_after_rotation)
         #screen.blit(Agent, displaced_agent_after_rotation)
-        self.text_information_display(screen, updated_x, updated_y, updated_theta)
+        self.text_information_display(screen, updated_x, updated_y, updated_theta, current_phi, reward)
         pygame.display.update()
         time.sleep(0.005) # Frame creates in 0.005 sec interval
 
 
 
-    def update(self, x, y, theta):
+    def update(self, x, y, theta, phi, reward):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 #TODO
                 train_finish = True
-        self.agent_movement_visualization(x, y, theta)
+        self.agent_movement_visualization(x, y, theta, phi, reward)
 
     def test_agent_visualization(self):
         pygame.init()

@@ -33,24 +33,22 @@ class Single_track_model:
         #that way, the exact new position can be approximated
 
         # fraction length of one elementary straight movement (0.001 seconds)
-        fractions_per_timestep = 100
+        fractions_per_timestep = 10
         fraction_size = self.timestep_size/fractions_per_timestep
 
-        x_new = self.x
-        y_new = self.y
-        theta_new = self.theta
 
         for _ in [float(j * fraction_size) for j in range(0, fractions_per_timestep, 1)]:
-            x_new += self.velocity * fraction_size * math.cos(theta_new)
-            y_new += self.velocity * fraction_size * math.sin(theta_new)
-            print(str(x_new)+";"+str(y_new))
-            theta_new += (math.tan(phi) / self.L) * fraction_size * self.velocity
 
-        self.x = x_new
-        self.y = y_new
-        self.theta = theta_new
+            self.x += self.velocity * fraction_size * math.cos(math.radians(self.theta))
+            self.y -= self.velocity * fraction_size * math.sin(math.radians(self.theta))
+            self.theta += math.degrees((math.tan(math.radians(phi)) / self.L) * fraction_size * self.velocity)
+            self.theta = -20
 
-        return x_new, y_new, theta_new
+        return self.x, self.y, self.theta
+        #self.theta += phi
+        #self.x += math.cos(self.theta)*100
+        #self.y += math.sin(self.theta)*100
+        #return self.x, self.y, self.theta,
 
     #get reward for specific state (currently ignoring the angle theta)
     def get_reward(self, px, py, theta, target):
@@ -74,3 +72,12 @@ class Single_track_model:
         new_state = self.next_state(phi)
         reward = self.get_reward(self.x, self.y, self.theta, target)
         return new_state, reward
+
+"""
+model = Single_track_model(45, 3, 5, 0.5)
+print(model.get_state())
+model.next_state(20)
+print(model.get_state())
+model.next_state(20)
+print(model.get_state())
+"""

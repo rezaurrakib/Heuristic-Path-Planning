@@ -11,11 +11,11 @@ from heuristic_visualization import Visualization
 env = gym.make('FrozenLake-v0')
 
 #possible steering angles (degrees) = actions to take
-STEERING_ACTIONS = [-40, -30, -20, -10, 0, 10, 20, 30, 40]
+STEERING_ACTIONS = [-5, -2.5, 0, 2.5, 5]
 
 MAX_PHI = 45 #maximal steering angle
 L = 3 #vehicle length between front and rear axis
-VELOCITY = 20 #velocity in m/s
+VELOCITY = 5 #velocity in m/s -> 18 km/h -> quite slow
 TIMESTEP_SIZE = 0.5 #timestep in s
 
 print("Creating model")
@@ -52,7 +52,7 @@ init = tf.initialize_all_variables()
 
 # Set learning parameters
 y = .99
-e = 0.1
+e = 0.4
 num_episodes = 100
 # create lists to contain total rewards and steps per episode
 jList = []
@@ -84,7 +84,7 @@ with tf.Session() as sess:
             # VISUALIZE CAR AND LINE HERE
             #TODO add L, phi, target_line to visualization
             x1, y1, theta1 = state1
-            visualization.update(x1,y1,theta)
+            visualization.update(x1,y1,theta, STEERING_ACTIONS[a[0]], reward)
 			#...
 
 

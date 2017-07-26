@@ -42,10 +42,19 @@ class Visualization:
             d = y%2  # applied for randomly distributed grid_color 
             for x in range(self.GRID_WIDTH):
                 pygame.draw.rect(screen, colors[(x+d)%2 ], (x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
-
+        
+        # Obstacle Loading in the Grid
         for i,j in obstacles_coordinate:
             #print i,j
-            pygame.draw.rect(screen, RED, (i*BLOCK_SIZE, j*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+            Obstacle = pygame.image.load("obstacle.png")
+            Obstacle = pygame.transform.scale(Obstacle, (BLOCK_SIZE, BLOCK_SIZE))
+            Obstacle.set_colorkey((255, 0, 0))
+            
+            obstacle_position = Obstacle.get_rect()
+            obstacle_position_move = obstacle_position.move(i*BLOCK_SIZE, j*BLOCK_SIZE)
+            screen.blit(Obstacle, obstacle_position_move)
+            #pygame.draw.rect(screen, RED, (i*BLOCK_SIZE, j*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+        
 
         # Agent Loading
         Agent = pygame.image.load("tesla.png")

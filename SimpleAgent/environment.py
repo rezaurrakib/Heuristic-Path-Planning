@@ -1,5 +1,6 @@
 import numpy as np
 import random
+from Simplified_Agent_Visualization import Visualization
 
 class Environment:
 
@@ -62,6 +63,9 @@ class Environment:
         #self.goal_x, self.goal_y -> goal coordinates
         #self.agent_pos_x, self.agent_pos_y -> agent coordinates
 
+        visual_object = Visualization(self.width, self.height, self.goal_x, self.goal_y, self.agent_pos_x, self.agent_pos_y)
+        visual_object.update(self.obstacles, self.agent_config)        
+        
         #print(str(self.width)+"; "+str(self.height)+"; "+str(self.agent_pos_x)+"; "+str(self.agent_pos_y)+"; "+str(self.agent_config))
         state_one_hot = np.eye(self.width*self.height*4)[(self.agent_pos_y*self.width) + self.agent_pos_x+(self.agent_config*self.height*self.width)]
         return state_one_hot, reward, stop

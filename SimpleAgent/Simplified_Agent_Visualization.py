@@ -71,19 +71,19 @@ class Visualization:
         
         elif agent_config == 1:
             updated_theta = 90   # turn top 
-            temp = self.agent_pos_x
-            self.agent_pos_x = self.agent_pos_y
-            self.agent_pos_y = -1 * temp
+            #temp = self.agent_pos_x
+            #self.agent_pos_x = self.agent_pos_y
+            #self.agent_pos_y = -1 * temp
             
         elif agent_config == 2:
             updated_theta = -180   # turn left
-            self.agent_pos_x = self.agent_pos_x * -1
+            #self.agent_pos_x = self.agent_pos_x * -1
         
         elif agent_config == 3:
             updated_theta = -90   # turn down
-            temp = self.agent_pos_x
-            self.agent_pos_x = self.agent_pos_y
-            self.agent_pos_y = temp
+            #temp = self.agent_pos_x
+            #self.agent_pos_x = self.agent_pos_y
+            #self.agent_pos_y = temp
         
         
         rotated_agent = self.rotatingTheta(Agent, updated_theta)
@@ -97,7 +97,7 @@ class Visualization:
         screen.blit(Goal, goal_position_move)
         
         pygame.display.update()
-        time.sleep(1) # Frame creates in 0.005 sec interval
+        time.sleep(0.005) # Frame creates in 0.005 sec interval
         
     def update(self, obstacles_coordinate, agent_config):
         self.agent_grid_movement_visualization(obstacles_coordinate, agent_config)       

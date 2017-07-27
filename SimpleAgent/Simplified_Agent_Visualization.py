@@ -34,10 +34,13 @@ class Visualization:
         rotations[agentObject] = r
         return pygame.transform.rotate(agentObject, r)
     
-    def agent_grid_movement_visualization(self, obstacles_coordinate, agent_config):
+    def agent_grid_movement_visualization(self, obstacles_coordinate, agent_config, agent_pos_x, agent_pos_y):
         
         screen = pygame.display.set_mode((self.GRID_WIDTH * BLOCK_SIZE, self.GRID_HEIGHT * BLOCK_SIZE))
-        
+
+        self.agent_pos_x = agent_pos_x
+        self.agent_pos_y = agent_pos_y
+
         for y in range(self.GRID_HEIGHT):
             d = y%2  # applied for randomly distributed grid_color 
             for x in range(self.GRID_WIDTH):
@@ -97,8 +100,8 @@ class Visualization:
         screen.blit(Goal, goal_position_move)
         
         pygame.display.update()
-        time.sleep(1) # Frame creates in 1 sec interval
+        time.sleep(0.05)
         
-    def update(self, obstacles_coordinate, agent_config):
-        self.agent_grid_movement_visualization(obstacles_coordinate, agent_config)       
+    def update(self, obstacles_coordinate, agent_config, agent_pos_x, agent_pos_y):
+        self.agent_grid_movement_visualization(obstacles_coordinate, agent_config, agent_pos_x, agent_pos_y)
 

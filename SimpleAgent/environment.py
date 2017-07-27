@@ -19,41 +19,44 @@ class Environment:
         self.agent_pos_y = start_pos_y
         self.agent_config = start_config
         self.number_states = width * height * 4
-        self.actions = [-1, 0, 1]
+        self.actions = [0,1,2]
+        self.visual_object = Visualization(self.width, self.height, self.goal_x, self.goal_y, self.agent_pos_x, self.agent_pos_y)
 
     #-1 = turn left; 0 = move straight; 1 = turn right
     def step(self, action):
         reward = 0
         stop = False
+        #turn
+        if action != 1:
+            if action == 0:
+                self.agent_config -= 1
+            elif action == 2:
+                self.agent_config += 1
+            self.agent_config %= 4
         #move straight
-        if action == 0:
-            if self.agent_config == 0:
-                self.agent_pos_x += 1
-            elif self.agent_config == 1:
-                self.agent_pos_y -= 1
-            elif self.agent_config == 2:
-                self.agent_pos_x -= 1
-            elif self.agent_config == 3:
-                self.agent_pos_y += 1
-            #check if obstacle
-            for (o_x, o_y) in self.obstacles:
-                if o_x == self.agent_pos_x and o_y == self.agent_pos_y:
-                    reward = -10
-                    stop = True
-                    return np.zeros(self.width * self.height * 4), reward, stop
-            #check if grid is left:
-            if self.agent_pos_x >= self.width or self.agent_pos_x < 0 or self.agent_pos_y >= self.height or self.agent_pos_y < 0:
+        if self.agent_config == 0:
+            self.agent_pos_x += 1
+        elif self.agent_config == 1:
+            self.agent_pos_y -= 1
+        elif self.agent_config == 2:
+            self.agent_pos_x -= 1
+        elif self.agent_config == 3:
+            self.agent_pos_y += 1
+        #check if obstacle
+        for (o_x, o_y) in self.obstacles:
+            if o_x == self.agent_pos_x and o_y == self.agent_pos_y:
                 reward = -10
                 stop = True
                 return np.zeros(self.width * self.height * 4), reward, stop
-            #check if goal is reached
-            if self.goal_x == self.agent_pos_x and self.goal_y == self.agent_pos_y:
-                reward = 10
-                stop = True
-        #else: turn, no reward, no stopping
-        else:
-            self.agent_config += action
-            self.agent_config %= 4
+        #check if grid is left:
+        if self.agent_pos_x >= self.width or self.agent_pos_x < 0 or self.agent_pos_y >= self.height or self.agent_pos_y < 0:
+            reward = -10
+            stop = True
+            return np.zeros(self.width * self.height * 4), reward, stop
+        #check if goal is reached
+        if self.goal_x == self.agent_pos_x and self.goal_y == self.agent_pos_y:
+            reward = 10
+            stop = True
 
         #TODO VISUALIZE ENVIRONMENT
         #PARAMETERS:
@@ -63,8 +66,7 @@ class Environment:
         #self.goal_x, self.goal_y -> goal coordinates
         #self.agent_pos_x, self.agent_pos_y -> agent coordinates
 
-        visual_object = Visualization(self.width, self.height, self.goal_x, self.goal_y, self.agent_pos_x, self.agent_pos_y)
-        visual_object.update(self.obstacles, self.agent_config)        
+        self.visual_object.update(self.obstacles, self.agent_config, self.agent_pos_x, self.agent_pos_y)
         
         #print(str(self.width)+"; "+str(self.height)+"; "+str(self.agent_pos_x)+"; "+str(self.agent_pos_y)+"; "+str(self.agent_config))
         state_one_hot = np.eye(self.width*self.height*4)[(self.agent_pos_y*self.width) + self.agent_pos_x+(self.agent_config*self.height*self.width)]
@@ -72,7 +74,8 @@ class Environment:
         #return (self.agent_pos_x, self.agent_pos_y, self.agent_config), 0, 0
 
     def get_random_action(self):
-        return random.choice(self.actions)
+        action = random.choice(self.actions)
+        return action
 
     def reset(self):
         self.agent_pos_x = self.start_x

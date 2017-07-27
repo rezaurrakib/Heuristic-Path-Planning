@@ -5,8 +5,8 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from environment import Environment
 
-environment = Environment(width=10, height=10, obstacles=[(1, 0), (4, 4), (8, 3), (7, 6)],
-                          goal_x=9, goal_y=9, start_pos_x=0, start_pos_y=0, start_config=0)
+environment = Environment(width=6, height=6, obstacles=[(1, 0), (4, 4)],
+                          goal_x=5, goal_y=5, start_pos_x=0, start_pos_y=0, start_config=0)
 
 tf.reset_default_graph()
 
@@ -26,7 +26,7 @@ init = tf.initialize_all_variables()
 
 # Set learning parameters
 y = .99
-e = 0.1
+e = 0.4
 num_episodes = 2000
 #create lists to contain total rewards and steps per episode
 jList = []
@@ -49,6 +49,7 @@ with tf.Session() as sess:
             if np.random.rand(1) < e:
                 a[0] = environment.get_random_action()
             #Get new state and reward from environment
+            print(a[0])
             s1,r,d = environment.step(a[0])
             #Obtain the Q' values by feeding the new state through our network
             Q1 = sess.run(Qout,feed_dict={inputs1:[s1]})

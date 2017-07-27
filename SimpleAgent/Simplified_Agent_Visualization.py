@@ -57,13 +57,12 @@ class Visualization:
         
 
         # Agent Loading
-        Agent = pygame.image.load("tesla.png")
+        Agent = pygame.image.load("teslaBlue.png")
         Agent = pygame.transform.scale(Agent, (BLOCK_SIZE, BLOCK_SIZE))
         Agent.set_colorkey((255, 0, 0))
-
-        # Goal Loading
+        
         Goal = pygame.image.load("goal.png")
-        Goal = pygame.transform.scale(Goal, (3*BLOCK_SIZE, 3*BLOCK_SIZE))
+        Goal = pygame.transform.scale(Goal, (BLOCK_SIZE, BLOCK_SIZE))
         Goal.set_colorkey((255, 0, 0))
         
         # Setting the car angle
@@ -89,16 +88,16 @@ class Visualization:
         
         rotated_agent = self.rotatingTheta(Agent, updated_theta)
         position = rotated_agent.get_rect()
-        displaced_agent_after_rotation = position.move(self.agent_pos_x, self.agent_pos_y)
+        displaced_agent_after_rotation = position.move(self.agent_pos_x*BLOCK_SIZE, self.agent_pos_y*BLOCK_SIZE)
         #screen.blit(rotated_agent, (400,300))
         screen.blit(rotated_agent, displaced_agent_after_rotation)
         
         goal_position = Goal.get_rect()
-        goal_position_move = goal_position.move(self.goal_x, self.goal_y)
+        goal_position_move = goal_position.move(self.goal_x*BLOCK_SIZE, self.goal_y*BLOCK_SIZE)
         screen.blit(Goal, goal_position_move)
         
         pygame.display.update()
-        time.sleep(0.004) # Frame creates in 0.005 sec interval
+        time.sleep(1) # Frame creates in 0.005 sec interval
         
     def update(self, obstacles_coordinate, agent_config):
         self.agent_grid_movement_visualization(obstacles_coordinate, agent_config)       

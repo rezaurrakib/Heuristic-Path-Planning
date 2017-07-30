@@ -27,11 +27,7 @@ class Visualization:
         self.goal_y = goal_y
         self.agent_pos_x = agent_pos_x
         self.agent_pos_y = agent_pos_y
-    
-    def rotatingTheta(self, agentObject, theta, rotations={}):
-        r = rotations.get(agentObject,0) + theta
-        rotations[agentObject] = r
-        return pygame.transform.rotate(agentObject, r)
+   
     
     def agent_grid_movement_visualization(self, obstacles_coordinate, agent_pos_x, agent_pos_y):
         

@@ -1,5 +1,6 @@
 import heapq 
 import math
+from AStar_Visualization import Visualization
 
 class Cell(object):
     def __init__(self, x, y, reachable):
@@ -40,9 +41,13 @@ class AStar(object):
                 else:
                     reachable = True
                 self.cells.append(Cell(x, y, reachable))
-        self.start = self.get_cell(0, 0)
-        self.end = self.get_cell(8, 9)
-
+        self.startx = 0
+        self.starty = 0
+        self.endx = 8
+        self.endy = 9 
+        self.start = self.get_cell(self.startx, self.starty)
+        self.end = self.get_cell(self.endx, self.endy)
+        self.visual_object = Visualization(self.grid_width, self.grid_height, self.endx, self.endy, self.x, self.y)
 
     def get_heuristic(self, cell, option):
         

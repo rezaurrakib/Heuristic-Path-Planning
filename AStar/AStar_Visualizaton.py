@@ -27,9 +27,13 @@ class Visualization:
         self.goal_y = goal_y
         self.agent_pos_x = agent_pos_x
         self.agent_pos_y = agent_pos_y
-   
     
-    def agent_grid_movement_visualization(self, obstacles_coordinate, agent_pos_x, agent_pos_y):
+    def rotatingTheta(self, agentObject, theta, rotations={}):
+        r = rotations.get(agentObject,0) + theta
+        rotations[agentObject] = r
+        return pygame.transform.rotate(agentObject, r)
+    
+    def agent_grid_movement_visualization(self, obstacles_coordinate, agent_pos_x, agent_pos_y, path_contruction_coordinates):
         
         screen = pygame.display.set_mode((self.GRID_WIDTH * BLOCK_SIZE, self.GRID_HEIGHT * BLOCK_SIZE))
         
@@ -41,6 +45,17 @@ class Visualization:
             for x in range(self.GRID_WIDTH):
                 pygame.draw.rect(screen, colors[(x+d)%2 ], (x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
         
+        #coloring the parent path
+        for i,j in path_contruction_coordinates:
+            
+            path = pygame.image.load("red_rectangle.png")
+            path = pygame.transform.scale(path, (BLOCK_SIZE, BLOCK_SIZE))
+            path.set_colorkey((255, 0, 0))        
+
+            path_position = path.get_rect()
+            path_position_move = path_position.move(i*BLOCK_SIZE, j*BLOCK_SIZE)
+            screen.blit(path, path_position_move)
+            
         # Obstacle Loading in the Grid
         for i,j in obstacles_coordinate:
             #print i,j
@@ -72,6 +87,5 @@ class Visualization:
         pygame.display.update()
         time.sleep(0.5) # Frame creates in 0.005 sec interval
         
-    def update(self, obstacles_coordinate, agent_pos_x, agent_pos_y):
-        self.agent_grid_movement_visualization(obstacles_coordinate, agent_pos_x, agent_pos_y)       
-    
+    def update(self, obstacles_coordinate, agent_pos_x, agent_pos_y, path_contruction_coordinates):
+        self.agent_grid_movement_visualization(obstacles_coordinate, agent_pos_x, agent_pos_y, path_contruction_coordinates)  

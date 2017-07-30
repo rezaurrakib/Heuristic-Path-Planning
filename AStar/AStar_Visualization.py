@@ -28,7 +28,7 @@ class Visualization:
         self.agent_pos_x = agent_pos_x
         self.agent_pos_y = agent_pos_y
     
-    def agent_grid_movement_visualization(self, obstacles_coordinate, agent_pos_x, agent_pos_y, path_contruction_coordinates):
+    def agent_grid_movement_visualization(self, obstacles_coordinate, agent_pos_x, agent_pos_y, path_construction_coordinates):
         
         screen = pygame.display.set_mode((self.GRID_WIDTH * BLOCK_SIZE, self.GRID_HEIGHT * BLOCK_SIZE))
         
@@ -41,7 +41,7 @@ class Visualization:
                 pygame.draw.rect(screen, colors[(x+d)%2 ], (x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
         
         #coloring the parent path
-        for i,j in path_contruction_coordinates:
+        for i,j in path_construction_coordinates:
             
             path = pygame.image.load("red_rectangle.png")
             path = pygame.transform.scale(path, (BLOCK_SIZE, BLOCK_SIZE))
@@ -82,5 +82,5 @@ class Visualization:
         pygame.display.update()
         time.sleep(0.5) # Frame creates in 0.005 sec interval
         
-    def update(self, obstacles_coordinate, agent_pos_x, agent_pos_y, path_contruction_coordinates):
-        self.agent_grid_movement_visualization(obstacles_coordinate, agent_pos_x, agent_pos_y, path_contruction_coordinates)  
+    def update(self, obstacles_coordinate, agent_pos_x, agent_pos_y, path_construction_coordinates):
+        self.agent_grid_movement_visualization(obstacles_coordinate, agent_pos_x, agent_pos_y, path_construction_coordinates)  

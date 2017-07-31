@@ -84,7 +84,7 @@ class AStar(object):
         return cells
 
 
-    def display_path(self):
+    def display_path(self,option):
 
         # Shows the path that is followed by the algorithm according to different heuristics mechanisms.
 
@@ -109,6 +109,12 @@ class AStar(object):
         print path 
         #visualization call
         self.visualizer(walls_l, path)
+
+        #sleep between different heuristics
+        if (option==0):
+            print "\nYou have seen the visualization of A* with Heuristic Option: Euclidean Distance!\n"
+        else: 
+            print "\nYou have seen the visualization of A* with Heuristic Option: Manhattan Distance!\n"
 
         #sleep between different heuristics
         time.sleep(5) 
@@ -146,7 +152,7 @@ class AStar(object):
             self.closed.add(cell)
             # if ending cell, display found path
             if cell is self.end:
-                self.display_path()
+                self.display_path(option)
                 break
             # get adjacent cells for cell
             adj_cells = self.get_adjacent_cells(cell)

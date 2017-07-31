@@ -1,6 +1,8 @@
 import tensorflow as tf
 import numpy as np
 from FieldModel import FieldModel
+from MultiLayerNN_visualization import Visualization
+
 n_epochs=2000
 
 n_obstacle=16
@@ -42,9 +44,12 @@ init = tf.global_variables_initializer()
 with tf.Session() as sess:
     sess.run(init)
     for epoch in range(n_epochs):
-        print "entering epoch "+ str(epoch+1)
+        ##print "entering epoch "+ str(epoch+1)
         #generate field with obstacle and start and goal 
-        Field= FieldModel(300,300)# field is a grid of 300x300 unit
+        Field= FieldModel(300, 300)# field is a grid of 300x300 unit
+        visual_object = Visualization(Field.height, Field.width, Field.x0_goal, Field.y0_goal, Field.xn_goal, Field.yn_goal, Field.x_init, Field.y_init)
+        
+        
         condition= True
         while(condition):
             #get input from field
@@ -52,15 +57,15 @@ with tf.Session() as sess:
             outputData= Field.getOutputData()
             for _ in range(1000):
                 R,_, dec= sess.run([reward_layer, optimizer, decision], feed_dict={X: np.array(inputData).reshape((1, 17)), Y:np.array(outputData).reshape((1, 3)) })
-            print R
-            #print outputData
-            #print outputData3
+            #print R
+            ##print outputData
+            ##print outputData3
             
             
             # update car position
-            #print type(dec)
-            #print dec
-            #print Field.theta
+            ##print type(dec)
+            ##print dec
+            ##print Field.theta
             new_dec= dec[0]
             if new_dec==0: #move left
                 if Field.theta ==0: # car is facing forward
@@ -106,10 +111,12 @@ with tf.Session() as sess:
                     Field.y_init-=1
                     Field.theta=180
             #input()
-            print str(Field.x_init)+" "+str(Field.y_init)+"---->"+str(Field.x0_goal)+" "+str(Field.y0_goal)
+            #print str(Field.x_init)+" "+str(Field.y_init)+"---->"+str(Field.x0_goal)+" "+str(Field.y0_goal)
+            visual_object.update(Field.obstacles, Field.theta/90, Field.x_init, Field.y_init)
+
             #condition = not Field.goalCheck()
             condition = (not Field.goalCheck()) and (not Field.collisionCheck())
-            #print str(Field.goalCheck())+" "+ str(Field.collisionCheck())
+            ##print str(Field.goalCheck())+" "+ str(Field.collisionCheck())
             if condition==False:
-                print "breaking while loop"
+                #print "breaking while loop"
                 break

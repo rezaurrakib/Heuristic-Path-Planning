@@ -93,6 +93,19 @@ A\* with Manhattan Distance as Heuristic Technique:
 
 ![MD](images/ManhattanDistance.png))
 
+## Deep Q Network
+### Random Field with Random Obstacles and Random Goal
+A Random field with 16 Random obstacles and 1 goal line has been generated for the training purpose. Initially each obstacle is a square having a length (l=6 unit). The field size is set to 300x300 unit.
+
+### More simplified car
+The concept of Dubins car is used. The car can moved only forward, left or right with a v=1 unit/sec. theta represents the facing of the car.
+### DQN Architecture
+Our DQN consists of 3 fully connected hidden layer. Each layer is using RELU as activation function. Each layer has 200 neurons. The input layer consists of 17 inputs each is a measure of distance. 16 are the distance of car from 16 obstacles and last distance is from the goal to the car. The output layer consists of 3 unit( for straight, left and right movement), each one is a reward value (Q value in this model). Adam optimizer has been used for minimizing the Q value (we are treating less reward as good position) since the traditional SGD has shown Vanishing Gradient problem with our model. 
+
+### Reward Policy
+When the car moves as near as 2 unit to obstacles, the reward value is increased by 1. When the car moves away from the goal, the reward is increased by 1. 
+
+
 ## Authors
 
 Reza, Abu, Emrecan Tarakci, Till Soehlemann

@@ -2,34 +2,43 @@
 
 As a team of four, we worked on the comparison and visulization of path planning problem.
 The responsibilities were the following (if there are any questions to one of the modules, feel free to contact to us)
-- Reza - Visualization of agent + behaviour for simple model & complex model
-- Till Soehlemann - Implementation of qlearning pipelines for simple model & complex model; Development of single-track model
-- Abu - Make qlearning models deep + add multiple layers
-- Emrecan Tarakci - A-Star Algorithm for grid model, reward mechanism for DQN
+- Reza - Visualization of agent + behaviour for simple model & complex model (all Visualization modules)
+- Till Soehlemann - Implementation of qlearning pipelines for simple model & complex model; Development of single-track model (SimpleQAgent, ComplexQAgent)
+- Abu - Make qlearning models deep + add multiple layers (3LayerNN)
+- Emrecan Tarakci - A-Star Algorithm for grid model, reward mechanism for DQN (AStar)
 
-## Getting Started
+## Overview
+#A-Star (Emre)
 
-First of all, to see the visualized A Star approach with two different heuristics, namely Euclidean Distance and Manhattan Distance, you need to run pathfinder.py which requires AStar_Visualization.py. 
+To see the visualized A Star approach with two different heuristics, namely Euclidean Distance and Manhattan Distance, you need to run pathfinder.py which requires AStar_Visualization.py. 
 
 The size of the grid, the obstacles, coordinates of starting point and the goal point can be modified in pathfinder.py. 
 The car finds the shortest path -smallest cost- in a timely manner. Of course, this depends on the heuristics that we are using, but for our 2D grid problem with some obstacles, it outperformed DQN approach.
 
 In addition, in visualization you may see the different heuristics and their path to goal. 
 
-Secondly, To train the simple q-learning module, run train_agent.py. The car learns to find a goal in a two-dimensional grid with random obstacles.
+#Q-learning (Till)
 
-The size of the grid, the obstacles and the goal can be modified in train_agent.py.
+Secondly, To train the simple q-learning module, run train_agent.py in SimpleQAgent. The car learns to find a goal in a two-dimensional grid with random obstacles.
 
-The visualization shows, how the car converges from an exploration phase (many random movements) to an exploitation phase and finally ends up in figuring out efficient paths to the goal.
+For each action in each state, the rewards are observed (1 if the goal is reached, -1 if a wall or an obstacle is hit, 0 otherwise). By trying out a large amount of action sequences, the car learns a set of q-values for each state, which represents the expected future reward for each action. As the agent explores the environment more and more (Exploration-Phase), the randomness factor decreases and the agent makes use of the observations and starts to only take the actions that turned out to lead to high rewards (Exploitation-Phase)
+
+The training process takes some time, as the agent starts with exploring the environment using a specific randomness factor e (set to 0.4, can be changed in train_agent.py), which decreases with training time.
+
+The size of the grid, the obstacles and the goal can also be modified in train_agent.py.
+
+The visualization shows how the car converges from an exploration phase (many random movements) to an exploitation phase and finally ends up in figuring out efficient paths to the goal.
 
 The downside of using qlearning is obviously the training time: in such a simple scenario, it would be more feasible using a simple heuristic in order to find the optimal path.
 
-However, this simple model is a perfect example for getting to know how q-learning works and getting an idea of how it could be applied to more advanced problems.
+However, this simple model is a perfect example for getting to know how q-learning works and getting an idea of how it could be applied to more advanced problems. Especially in complex environments, in which it is not possible for humans any more to define clear and simple heuristics or rules, q-learning can be a great opportunity to let an agent explore the environment and the rewards for each action in each state by exploration.
 
 
-Finally, We also implemented a more complex q-learning module, which does not use a discretized grid, but a more complex and high-dimensional environment.
+Finally, there is also a more complex q-learning module, which does not use a discretized grid, but a more complex and high-dimensional environment.
 
-Here, the movements are restricted by a single track model, defined by the length L of the car, the steering angle phi, the configuration angle theta and the position of the car and a goal line.
+To run the complex model, execute the script train_agent.py in ComplexQAgent.
+
+Here, the movements are restricted by a single track model, defined by the length L of the car, the steering angle phi, the configuration angle theta and the position of the car and a goal line. More specifically, the only action the car can take is a change of the steering angle phi, which leads (due to constant speed) to a change of x, y and theta.
 
 It can be seen that the movements of the car are more realistic, but also that the model is way more complex and unfortunately does not behave optimally.
 
@@ -43,7 +52,7 @@ What things you need to install the software and how to install them
 Tensorflow: pip install tensorflow
 
 
-## Visualization Process
+## Visualization Process (Reza)
 The visualization process incorporates a two dimensional grid having the co-ordinates of the obstacles in it. For the design of the simple Q Learning based agent and A-Star implemmentation the Grid has been used as the traning space. 
 
 In case of simple Q Learning based agent, the Agent (i.e., the car) starts it's journey from the starting coordiante which has been provided by the system. The goal is also fixed. We have four agent configuration for the facing of the car/agent.
@@ -55,7 +64,7 @@ In case of simple Q Learning based agent, the Agent (i.e., the car) starts it's 
 
 for the A - Star implementation, the scenerio is slightly different. Although the agent facing and the 2D Grid world is same , but the visualization process is not same. In A - Star implementation, we've shouwn the path construction of the car from the starting point towards the Goal position. The heuristic technique has been applied using the Manhattan distance and Euclidean Distance. Obviously , the co-ordinate list of the obstacles are also present in this visualization model too.
 
-## Visualization Methods
+## Visualization Methods (Reza)
 For the simple Q Learning based agent movemment, the *Visualization Class* in the *Simplified_Agent_Visualization.py* file defines the update() method which takes the co-ordinate list of the ostacles, agent/car's updated position (x, y) and the agent configuration as the parameter. 
 
 

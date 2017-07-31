@@ -13,7 +13,7 @@ GRID_HEIGHT = 18
 GRID_WIDTH = 25
 BLOCK_SIZE = 10
 
-LINE_THICKNESS = 5
+LINE_THICKNESS = 8
 
 SCREEN_WIDTH = 200
 SCREEN_HEIGHT = 120
@@ -67,9 +67,12 @@ class Visualization:
         Agent = pygame.image.load("tesla.png")
         Agent = pygame.transform.scale(Agent, (BLOCK_SIZE, BLOCK_SIZE))
         Agent.set_colorkey((255, 0, 0))
+
+        Goal = pygame.image.load("goal.png")
+        Goal = pygame.transform.scale(Goal, (BLOCK_SIZE, BLOCK_SIZE))
+        Goal.set_colorkey((255, 0, 0))
         
-        pygame.draw.line(screen, RED, (self.goal_x1, self.goal_y1), 
-                         (self.goal_y2, self.goal_y2), LINE_THICKNESS)
+        #pygame.draw.line(screen, RED, (self.goal_x1, self.goal_y1), (self.goal_y2, self.goal_y2), LINE_THICKNESS)
 
         
         # Setting the car angle
@@ -91,6 +94,10 @@ class Visualization:
         displaced_agent_after_rotation = position.move(self.agent_pos_x, self.agent_pos_y)
         #screen.blit(rotated_agent, (400,300))
         screen.blit(rotated_agent, displaced_agent_after_rotation)
+
+        goal_position = Goal.get_rect()
+        goal_position_move = goal_position.move(self.goal_x2, self.goal_y2)
+        screen.blit(Goal, goal_position_move)
         
         pygame.display.update()
         time.sleep(0.01)

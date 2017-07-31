@@ -2,9 +2,9 @@
 
 As a team of four, we worked on the comparison and visulization of path planning problem.
 The responsibilities were the following (if there are any questions to one of the modules, feel free to contact to us)
-- Reza - Visualization of agent + behaviour for simple model & complex model (all Visualization modules)
+- Md Rezaur Rahman - Visualization of agent + behaviour for simple model & complex model (all Visualization modules)
 - Till Soehlemann - Implementation of qlearning pipelines for simple model & complex model; Development of single-track model (SimpleQAgent, ComplexQAgent)
-- Abu - Make qlearning models deep + add multiple layers (3LayerNN)
+- Abu Mohammed Raisuddin - Make qlearning models deep + add multiple layers (3LayerNN)
 - Emrecan Tarakci - A-Star Algorithm for grid model, reward mechanism for DQN (AStar)
 
 ## Overview
@@ -48,7 +48,6 @@ It can be seen that the movements of the car are more realistic, but also that t
 
 
 
-
 ## Prerequisites
 
 What things you need to install the software and how to install them.
@@ -57,7 +56,7 @@ What things you need to install the software and how to install them.
 - Python 3
 - Python 2.7
 
-## Visualization Process (Reza)
+## Visualization Process (Rezaur)
 The visualization process incorporates a two dimensional grid having the co-ordinates of the obstacles in it. For the design of the simple Q Learning based agent and A-Star implemmentation the Grid has been used as the traning space. 
 
 In case of simple Q Learning based agent, the Agent (i.e., the car) starts it's journey from the starting coordiante which has been provided by the system. The goal is also fixed. We have four agent configuration for the facing of the car/agent.
@@ -69,7 +68,7 @@ In case of simple Q Learning based agent, the Agent (i.e., the car) starts it's 
 
 for the A - Star implementation, the scenerio is slightly different. Although the agent facing and the 2D Grid world is same , but the visualization process depicts a more detailed fabrication of the path construction made by the agent. In the A - Star implementation, we've shown the path construction of the car from the starting point towards the goal position. The heuristic technique has been applied using the *Manhattan distance* and *Euclidean Distance*. Obviously, the co-ordinate list of the obstacles are also present in this visualization model.
 
-## Visualization Methods (Reza)
+## Visualization Methods (Rezaur)
 For the simple Q learning based agent movemment, the *Visualization Class* in the *Simplified_Agent_Visualization.py* file defines the update() method which takes the co-ordinate list of the ostacles, agent/car's updated position (x, y) and the agent configuration as the parameter. 
 
 #*agent_grid_movement_visualization()*
@@ -112,4 +111,4 @@ When the car moves as near as 2 unit to obstacles, the reward value is increased
 
 ## Authors
 
-Reza, Abu, Emrecan Tarakci, Till Soehlemann
+Md Rezaur Rahman, Abu Mohammed Raisuddin, Emrecan Tarakci, Till Soehlemann

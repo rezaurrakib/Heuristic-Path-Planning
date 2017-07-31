@@ -1,11 +1,11 @@
 # Heuristic Path Planning with A* and Deep Q Networks
 
 As a team of four, we worked on the comparison and visulization of path planning problem.
-The responsibilities where the following (if there are any questions to one of the modules, feel free to contact to us):
--Reza: Visualization of agent + behaviour for simple model & complex model
--Till Soehlemann: Implementation of qlearning pipelines for simple model & complex model; Development of single-track model
--Abu: Make qlearning models deep: add multiple layers
--Emre Can: A-Star Algorithm for grid model
+The responsibilities were the following (if there are any questions to one of the modules, feel free to contact to us)
+- Reza - Visualization of agent + behaviour for simple model & complex model
+- Till Soehlemann - Implementation of qlearning pipelines for simple model & complex model; Development of single-track model
+- Abu - Make qlearning models deep + add multiple layers
+- Emre Can - A-Star Algorithm for grid model
 
 ## Getting Started
 

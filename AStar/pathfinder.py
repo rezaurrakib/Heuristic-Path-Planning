@@ -33,6 +33,7 @@ class AStar(object):
         self.cells = []
         self.grid_height = 10
         self.grid_width = 10
+        self.agent_config=0
 
     def init_grid(self):
         
@@ -83,7 +84,6 @@ class AStar(object):
             cells.append(self.get_cell(cell.x, cell.y+1))
         return cells
 
-
     def display_path(self,option):
 
         # Shows the path that is followed by the algorithm according to different heuristics mechanisms.
@@ -91,7 +91,7 @@ class AStar(object):
         path = []
         cell = self.end
         walls_l = list(walls)
-        
+        config = []
         #Visualization class instance
         self.visual_object = Visualization(self.grid_width, self.grid_height, self.endx, self.endy, cell.x, cell.y)
         
@@ -105,10 +105,31 @@ class AStar(object):
         path.reverse()
         path.append((self.endx, self.endy))
         
+        config.append(0)
+        for i in range(len(path)-1):
+            
+            if (path[i][0] == path[i+1][0]):
+                if(path[i][1] < path[i+1][1]):
+                    #self.agent_config = 0
+                    config.append(3)
+                if(path[i][1] > path[i+1][1]):
+                    #self.agent_config = 2
+                    config.append(1)
+            if (path[i][1] == path[i+1][1]):
+                if(path[i][0] < path[i+1][0]):
+                    #self.agent_config = 3
+                    config.append(0)
+                if(path[i][0] > path[i+1][0]):
+                    #self.agent_config = 1
+                    config.append(2)
+
+        #visualization call
+        self.visualizer(walls_l, path, config)
+
+
         #followed path results for the command line
         print path 
-        #visualization call
-        self.visualizer(walls_l, path)
+        print config
 
         #sleep between different heuristics
         if (option==0):
@@ -129,12 +150,12 @@ class AStar(object):
         adj.f = adj.h + adj.g
 
 
-    def visualizer(self, obstacles_coordinates, path_construction_coordinates):
+    def visualizer(self, obstacles_coordinates, path_construction_coordinates, config):
         
         #visual path construction
         
         for i in range(path_construction_coordinates.__len__()):
-            self.visual_object.update(obstacles_coordinates, path_construction_coordinates[i][0], path_construction_coordinates[i][1], path_construction_coordinates)
+            self.visual_object.update(obstacles_coordinates, path_construction_coordinates[i][0], path_construction_coordinates[i][1], path_construction_coordinates, config[i])
           
 
     def process(self, option):
@@ -156,6 +177,7 @@ class AStar(object):
                 break
             # get adjacent cells for cell
             adj_cells = self.get_adjacent_cells(cell)
+
             for adj_cell in adj_cells:
                 if adj_cell.reachable and adj_cell not in self.closed:
                     if (adj_cell.f, adj_cell) in self.opened:
@@ -168,7 +190,6 @@ class AStar(object):
                         self.update_cell(adj_cell, cell, option)
                         # add adj cell to open list
                         heapq.heappush(self.opened, (adj_cell.f, adj_cell))
-
 
 A=AStar()
 A.init_grid()

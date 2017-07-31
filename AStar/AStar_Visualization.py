@@ -27,8 +27,13 @@ class Visualization:
         self.goal_y = goal_y
         self.agent_pos_x = agent_pos_x
         self.agent_pos_y = agent_pos_y
+
+    def rotatingTheta(self, agentObject, theta, rotations={}):
+        r = rotations.get(agentObject,0) + theta
+        rotations[agentObject] = r
+        return pygame.transform.rotate(agentObject, r)
     
-    def agent_grid_movement_visualization(self, obstacles_coordinate, agent_pos_x, agent_pos_y, path_construction_coordinates):
+    def agent_grid_movement_visualization(self, obstacles_coordinate, agent_pos_x, agent_pos_y, path_construction_coordinates, agent_config):
         
         screen = pygame.display.set_mode((self.GRID_WIDTH * BLOCK_SIZE, self.GRID_HEIGHT * BLOCK_SIZE))
         
@@ -71,9 +76,24 @@ class Visualization:
         Goal = pygame.transform.scale(Goal, (BLOCK_SIZE, BLOCK_SIZE))
         Goal.set_colorkey((255, 0, 0))
         
-        position = Agent.get_rect()
+        # Setting the car angle
+        if agent_config == 0:
+            updated_theta = 0   # turn right / front
+        
+        elif agent_config == 1:
+            updated_theta = 90   # turn top 
+            
+        elif agent_config == 2:
+            updated_theta = -180   # turn left
+        
+        elif agent_config == 3:
+            updated_theta = -90   # turn down
+        
+        
+        rotated_agent = self.rotatingTheta(Agent, updated_theta)
+        position = rotated_agent.get_rect()
         displaced_agent_after_movement = position.move(self.agent_pos_x*BLOCK_SIZE, self.agent_pos_y*BLOCK_SIZE)
-        screen.blit(Agent, displaced_agent_after_movement)
+        screen.blit(rotated_agent, displaced_agent_after_movement)
         
         goal_position = Goal.get_rect()
         goal_position_move = goal_position.move(self.goal_x*BLOCK_SIZE, self.goal_y*BLOCK_SIZE)
@@ -82,5 +102,5 @@ class Visualization:
         pygame.display.update()
         time.sleep(0.5) # Frame creates in 0.5 sec interval
         
-    def update(self, obstacles_coordinate, agent_pos_x, agent_pos_y, path_construction_coordinates):
-        self.agent_grid_movement_visualization(obstacles_coordinate, agent_pos_x, agent_pos_y, path_construction_coordinates)  
+    def update(self, obstacles_coordinate, agent_pos_x, agent_pos_y, path_construction_coordinates, agent_config):
+        self.agent_grid_movement_visualization(obstacles_coordinate, agent_pos_x, agent_pos_y, path_construction_coordinates, agent_config)  

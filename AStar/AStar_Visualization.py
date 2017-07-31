@@ -80,7 +80,7 @@ class Visualization:
         screen.blit(Goal, goal_position_move)
         
         pygame.display.update()
-        time.sleep(0.5) # Frame creates in 0.005 sec interval
+        time.sleep(0.5) # Frame creates in 0.5 sec interval
         
     def update(self, obstacles_coordinate, agent_pos_x, agent_pos_y, path_construction_coordinates):
         self.agent_grid_movement_visualization(obstacles_coordinate, agent_pos_x, agent_pos_y, path_construction_coordinates)  

@@ -1,6 +1,10 @@
 import heapq 
 import math
+import time
+
 from AStar_Visualization import Visualization
+
+walls = ((0, 5), (1, 0), (1, 1), (1, 5), (2, 3), (4, 5), (5, 5), (3, 7), (7, 7), (8, 7), (9, 7))
 
 class Cell(object):
     def __init__(self, x, y, reachable):
@@ -30,10 +34,8 @@ class AStar(object):
         self.grid_height = 10
         self.grid_width = 10
 
-
     def init_grid(self):
-        walls = ((0, 5), (1, 0), (1, 1), (1, 5), (2, 3), 
-                 (4, 5), (5, 5), (3, 7), (7, 7), (8, 7), (9, 7))
+        
         for x in range(self.grid_width):
             for y in range(self.grid_height):
                 if (x, y) in walls:
@@ -47,11 +49,11 @@ class AStar(object):
         self.endy = 9 
         self.start = self.get_cell(self.startx, self.starty)
         self.end = self.get_cell(self.endx, self.endy)
-        self.visual_object = Visualization(self.grid_width, self.grid_height, self.endx, self.endy, self.x, self.y)
+        
 
     def get_heuristic(self, cell, option):
         
-        # Heuristic val. H is calculated fo currenct cell to ending cell and multiplied by 10.
+        # Heuristic val. H is calculated fo current cell to ending cell and multiplied by 10.
         
         result = 0
         if (option==0):     #euclidean distance
@@ -64,9 +66,7 @@ class AStar(object):
     def get_cell(self, x, y):
         
         # Returns a cell from cells list
-        
         return self.cells[x * self.grid_height + y]
-
 
     def get_adjacent_cells(self, cell):
         
@@ -88,12 +88,31 @@ class AStar(object):
 
         # Shows the path that is followed by the algorithm according to different heuristics mechanisms.
 
+        path = []
         cell = self.end
+        walls_l = list(walls)
+        
+        #Visualization class instance
+        self.visual_object = Visualization(self.grid_width, self.grid_height, self.endx, self.endy, cell.x, cell.y)
+        
         while cell.parent is not self.start:
             cell = cell.parent
             print 'path: cell: %d,%d' % (cell.x, cell.y)
+            path.append((cell.x, cell.y))
+        
+        #adding initial and final nodes
+        path.append((self.startx, self.starty))
+        path.reverse()
+        path.append((self.endx, self.endy))
+        
+        #followed path results for the command line
+        print path 
+        #visualization call
+        self.visualizer(walls_l, path)
 
-
+        #sleep between different heuristics
+        time.sleep(5) 
+        
     def update_cell(self, adj, cell, option):
         
         # Update adjacent cell
@@ -103,8 +122,18 @@ class AStar(object):
         adj.parent = cell
         adj.f = adj.h + adj.g
 
+
+    def visualizer(self, obstacles_coordinates, path_construction_coordinates):
+        
+        #visual path construction
+        
+        for i in range(path_construction_coordinates.__len__()):
+            self.visual_object.update(obstacles_coordinates, path_construction_coordinates[i][0], path_construction_coordinates[i][1], path_construction_coordinates)
+          
+
     def process(self, option):
     # add starting cell to open heap queue
+
         if (option==0):
             print "\nHeuristic Option is set to: Euclidean Distance!"
         else: 
@@ -134,9 +163,12 @@ class AStar(object):
                         # add adj cell to open list
                         heapq.heappush(self.opened, (adj_cell.f, adj_cell))
 
+
 A=AStar()
 A.init_grid()
-A.process(0)
+A.process(1)
+
+
 B=AStar()
 B.init_grid()
-B.process(1)
+B.process(0)

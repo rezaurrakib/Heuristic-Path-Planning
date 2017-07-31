@@ -5,8 +5,8 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from environment import Environment
 
-environment = Environment(width=6, height=6, obstacles=[(1, 0), (4, 4)],
-                          goal_x=5, goal_y=5, start_pos_x=0, start_pos_y=0, start_config=0)
+environment = Environment(width=10, height=10, obstacles=[(0, 5), (1, 0), (1, 1), (1, 5), (2, 3), (4, 5), (5, 5), (3, 7), (7, 7), (8, 7), (9, 7)],
+                          goal_x=8, goal_y=9, start_pos_x=0, start_pos_y=0, start_config=0)
 
 tf.reset_default_graph()
 

@@ -44,8 +44,13 @@ Tensorflow: pip install tensorflow
 
 ## Visualization: 
 
+A\* with Euclidean Distance as Heuristic Technique:
+
 ![ED](images/EuclideanDistance.png)
-![MD](images/ManhattanDistance.png)
+
+A\* with Manhattan Distance as Heuristic Technique:
+
+![MD](images/ManhattanDistance.png))
 
 
 ## Authors

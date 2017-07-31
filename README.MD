@@ -67,18 +67,16 @@ In case of simple Q Learning based agent, the Agent (i.e., the car) starts it's 
 - For agent_config 2, it faces towards left/backward, rotation of -180 degree 
 - For agent_config 3, it faces towards down of the current cell, rotation of 270 degree 
 
-for the A - Star implementation, the scenerio is slightly different. Although the agent facing and the 2D Grid world is same , but the visualization process is not same. In A - Star implementation, we've shouwn the path construction of the car from the starting point towards the Goal position. The heuristic technique has been applied using the Manhattan distance and Euclidean Distance. Obviously , the co-ordinate list of the obstacles are also present in this visualization model too.
+for the A - Star implementation, the scenerio is slightly different. Although the agent facing and the 2D Grid world is same , but the visualization process depicts a more detailed fabrication of the path construction made by the agent. In the A - Star implementation, we've shown the path construction of the car from the starting point towards the goal position. The heuristic technique has been applied using the *Manhattan distance* and *Euclidean Distance*. Obviously, the co-ordinate list of the obstacles are also present in this visualization model.
 
 ## Visualization Methods (Reza)
-For the simple Q Learning based agent movemment, the *Visualization Class* in the *Simplified_Agent_Visualization.py* file defines the update() method which takes the co-ordinate list of the ostacles, agent/car's updated position (x, y) and the agent configuration as the parameter. 
-
+For the simple Q learning based agent movemment, the *Visualization Class* in the *Simplified_Agent_Visualization.py* file defines the update() method which takes the co-ordinate list of the ostacles, agent/car's updated position (x, y) and the agent configuration as the parameter. 
 
 #*agent_grid_movement_visualization()*
 
 This method is responsible for creating the 2D World cordinate system where the car will navigate and learn. The obstacles are distributed in the screen according to the dynamic coordinate provided from the update() method. We've used the *pygame* framework for visualizing the rectangles, grids and animations. The agent and the goal position is also configured here. 
 
 After the displacement of the agent according to the updated (x,y) coordinate, the car is redrawn in the 2D Grid. We have created the frames in 0.05 secs interval, to show the  movement and learning procedure of the car.
-
 
 #*rotatingTheta()*
 

@@ -5,7 +5,7 @@ The responsibilities were the following (if there are any questions to one of th
 - Reza - Visualization of agent + behaviour for simple model & complex model
 - Till Soehlemann - Implementation of qlearning pipelines for simple model & complex model; Development of single-track model
 - Abu - Make qlearning models deep + add multiple layers
-- Emrecan Tarakci - A-Star Algorithm for grid model
+- Emrecan Tarakci - A-Star Algorithm for grid model, reward mechanism for DQN
 
 ## Getting Started
 
@@ -44,4 +44,4 @@ Give examples
 
 ## Authors
 
-Reza, Abu, Emre Can, Till Soehlemann
+Reza, Abu, Emrecan Tarakci, Till Soehlemann

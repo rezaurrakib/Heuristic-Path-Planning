@@ -8,14 +8,18 @@ The responsibilities were the following (if there are any questions to one of th
 - Emrecan Tarakci - A-Star Algorithm for grid model, reward mechanism for DQN (AStar)
 
 ## Overview
-#A-Star (Emre)
+#A-Star (Emrecan)
 
 To see the visualized A Star approach with two different heuristics, namely Euclidean Distance and Manhattan Distance, you need to run pathfinder.py which requires AStar_Visualization.py. 
+Also please note that, this part is realized under Ubuntu 16.04 with python2.7. 
+
+Thus, in order to run this program you need to use `python pathfinder.py`.
 
 The size of the grid, the obstacles, coordinates of starting point and the goal point can be modified in pathfinder.py. 
 The car finds the shortest path -smallest cost- in a timely manner. Of course, this depends on the heuristics that we are using, but for our 2D grid problem with some obstacles, it outperformed DQN approach.
 
-In addition, in visualization you may see the different heuristics and their path to goal. 
+In addition, in visualization you may see the different heuristics and their path to goal.
+
 
 #Q-learning (Till)
 
@@ -51,7 +55,7 @@ What things you need to install the software and how to install them
 
 Tensorflow: pip install tensorflow
 Python 3
-
+Python 2.7
 
 ## Visualization Process (Reza)
 The visualization process incorporates a two dimensional grid having the co-ordinates of the obstacles in it. For the design of the simple Q Learning based agent and A-Star implemmentation the Grid has been used as the traning space. 

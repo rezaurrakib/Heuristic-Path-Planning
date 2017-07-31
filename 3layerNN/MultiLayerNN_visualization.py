@@ -13,7 +13,7 @@ GRID_HEIGHT = 18
 GRID_WIDTH = 25
 BLOCK_SIZE = 30
 
-LINE_THICKNESS = 8
+LINE_THICKNESS = 5
 
 SCREEN_WIDTH = 200
 SCREEN_HEIGHT = 120
@@ -40,7 +40,7 @@ class Visualization:
     
     def agent_grid_movement_visualization(self, obstacles_coordinate, agent_config, agent_pos_x, agent_pos_y):
         
-        screen = pygame.display.set_mode((self.GRID_WIDTH * BLOCK_SIZE, self.GRID_HEIGHT * BLOCK_SIZE))
+        screen = pygame.display.set_mode((self.GRID_WIDTH, self.GRID_HEIGHT))
 
         self.agent_pos_x = agent_pos_x
         self.agent_pos_y = agent_pos_y
@@ -48,17 +48,17 @@ class Visualization:
         for y in range(self.GRID_HEIGHT):
             d = y%2  # applied for randomly distributed grid_color 
             for x in range(self.GRID_WIDTH):
-                pygame.draw.rect(screen, colors[(x+d)%2 ], (x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+                pygame.draw.rect(screen, colors[(x+d)%2 ], (x, y, BLOCK_SIZE*10, BLOCK_SIZE*10))
         
         # Obstacle Loading in the Grid
-        for i,j in obstacles_coordinate:
+        for i,j,length in obstacles_coordinate:
             #print i,j
             Obstacle = pygame.image.load("obstacle.png")
             Obstacle = pygame.transform.scale(Obstacle, (BLOCK_SIZE, BLOCK_SIZE))
             Obstacle.set_colorkey((255, 0, 0))
             
             obstacle_position = Obstacle.get_rect()
-            obstacle_position_move = obstacle_position.move(i*BLOCK_SIZE, j*BLOCK_SIZE)
+            obstacle_position_move = obstacle_position.move(i, j)
             screen.blit(Obstacle, obstacle_position_move)
             #pygame.draw.rect(screen, RED, (i*BLOCK_SIZE, j*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
         
@@ -68,8 +68,8 @@ class Visualization:
         Agent = pygame.transform.scale(Agent, (BLOCK_SIZE, BLOCK_SIZE))
         Agent.set_colorkey((255, 0, 0))
         
-        pygame.draw.line(screen, RED, (self.goal_x1 * BLOCK_SIZE, self.goal_y1 * BLOCK_SIZE), 
-                         (self.goal_y2 * BLOCK_SIZE, self.goal_y2 * BLOCK_SIZE), LINE_THICKNESS)
+        pygame.draw.line(screen, RED, (self.goal_x1, self.goal_y1), 
+                         (self.goal_y2, self.goal_y2), LINE_THICKNESS)
 
         
         # Setting the car angle
@@ -88,12 +88,12 @@ class Visualization:
         
         rotated_agent = self.rotatingTheta(Agent, updated_theta)
         position = rotated_agent.get_rect()
-        displaced_agent_after_rotation = position.move(self.agent_pos_x*BLOCK_SIZE, self.agent_pos_y*BLOCK_SIZE)
+        displaced_agent_after_rotation = position.move(self.agent_pos_x, self.agent_pos_y)
         #screen.blit(rotated_agent, (400,300))
         screen.blit(rotated_agent, displaced_agent_after_rotation)
         
         pygame.display.update()
-        time.sleep(0.05)
+        time.sleep(0.01)
         
     def update(self, obstacles_coordinate, agent_config, agent_pos_x, agent_pos_y):
         self.agent_grid_movement_visualization(obstacles_coordinate, agent_config, agent_pos_x, agent_pos_y)

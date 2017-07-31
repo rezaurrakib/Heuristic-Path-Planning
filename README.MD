@@ -50,6 +50,7 @@ It can be seen that the movements of the car are more realistic, but also that t
 What things you need to install the software and how to install them
 
 Tensorflow: pip install tensorflow
+Python 3
 
 
 ## Visualization Process (Reza)
@@ -93,8 +94,9 @@ A\* with Manhattan Distance as Heuristic Technique:
 
 ![MD](images/ManhattanDistance.png))
 
-## Deep Q Network
+## Deep Q Network (Abu)
 ### Random Field with Random Obstacles and Random Goal
+The executables can be found in 3LayerNN.
 A Random field with 16 Random obstacles and 1 goal line has been generated for the training purpose. Initially each obstacle is a square having a length (l=6 unit). The field size is set to 300x300 unit.
 
 ### More simplified car

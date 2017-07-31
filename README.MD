@@ -70,7 +70,7 @@ After the displacement of the agent according to the updated (x,y) coordinate, t
 
 This method is responsible for updating the car position according to the updated agent configuration angle. It returns the transformed image of rotated car.
 
-In the A - Star implementation, the visualizaton methods are almost same. A few changes have benn made for showing the path constrauction of the car. The system provided the car's updated  (x,y) position and the list of the so far visited co-ordinates. Then the *agent_grid_movement_visualization()* method in the *AStar_Visualization.py* file draws the visited paths in the GRID with obstacles and agent's new position.   
+In the A - Star implementation, the visualizaton methods are almost same. A few changes have been made for showing the path constrauction of the car. The system provided the car's updated  (x,y) position and the list of the so far visited co-ordinates. Then the *agent_grid_movement_visualization()* method in the *AStar_Visualization.py* file draws the visited paths in the GRID with obstacles and agent's new position.   
 
 In below, there are some snippets of the visualizaton process is given : 
 

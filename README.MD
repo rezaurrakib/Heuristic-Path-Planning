@@ -51,11 +51,11 @@ It can be seen that the movements of the car are more realistic, but also that t
 
 ## Prerequisites
 
-What things you need to install the software and how to install them
+What things you need to install the software and how to install them.
 
-Tensorflow: pip install tensorflow
-Python 3
-Python 2.7
+- Tensorflow: *pip install tensorflow*
+- Python 3
+- Python 2.7
 
 ## Visualization Process (Reza)
 The visualization process incorporates a two dimensional grid having the co-ordinates of the obstacles in it. For the design of the simple Q Learning based agent and A-Star implemmentation the Grid has been used as the traning space. 

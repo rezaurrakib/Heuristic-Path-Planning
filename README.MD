@@ -69,7 +69,7 @@ In case of simple Q Learning based agent, the Agent (i.e., the car) starts it's 
 for the A - Star implementation, the scenerio is slightly different. Although the agent facing and the 2D Grid world is same , but the visualization process depicts a more detailed fabrication of the path construction made by the agent. In the A - Star implementation, we've shown the path construction of the car from the starting point towards the goal position. The heuristic technique has been applied using the *Manhattan distance* and *Euclidean Distance*. Obviously, the co-ordinate list of the obstacles are also present in this visualization model.
 
 ## Visualization Methods (Rezaur)
-For the simple Q learning based agent movemment, the *Visualization Class* in the *Simplified_Agent_Visualization.py* file defines the update() method which takes the co-ordinate list of the ostacles, agent/car's updated position (x, y) and the agent configuration as the parameter. 
+For the simple Q learning based agent movemment, the *Visualization Class* in the *Simplified_Agent_Visualization.py* file defines the update() method which takes the co-ordinate list of the obstacles, agent/car's updated position (x, y) and the agent configuration as the parameter. 
 
 #*agent_grid_movement_visualization()*
 
